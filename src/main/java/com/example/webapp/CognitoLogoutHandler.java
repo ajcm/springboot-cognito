@@ -2,6 +2,7 @@ package com.example.webapp;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -18,17 +19,17 @@ public class CognitoLogoutHandler extends SimpleUrlLogoutSuccessHandler {
     /**
      * The domain of your user pool.
      */
-    private String domain = "https://eu-west-19o9th8r4u.auth.eu-west-1.amazoncognito.com";
+    private String domain = System.getenv("DOMAIN-URL");
 
     /**
      * An allowed callback URL.
      */
-    private String logoutRedirectUrl = "http://localhost:8080/";
+    private String logoutRedirectUrl = System.getenv("HOST-URL");
 
     /**
      * The ID of your User Pool Client.
      */
-    private String userPoolClientId = "32u973dou2nhebl9p9rt16pdpc";
+    private String userPoolClientId = System.getenv("CLIENT-ID");
 
     /**
      * Here, we must implement the new logout URL request. We define what URL to send our request to, and set out client_id and logout_uri parameters.

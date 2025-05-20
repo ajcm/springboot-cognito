@@ -31,6 +31,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/").permitAll()
                         .anyRequest()
                         .authenticated())
+
                 .oauth2Login(Customizer.withDefaults())
                 .logout(logout -> logout.logoutSuccessHandler(cognitoLogoutHandler));
         return http.build();

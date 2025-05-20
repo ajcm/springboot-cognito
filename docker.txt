@@ -1,0 +1,9 @@
+Docker
+--
+docker build . -t ajcm/zcloud-backend
+docker push ajcm/zcloud-backend
+
+docker run -p 8080:8080  ajcm/zcloud-backend
+docker run  -p 8080:8080  --env-file=docker.env ajcm/zcloud-backend
+
+
