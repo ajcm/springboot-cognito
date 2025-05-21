@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,19 +15,20 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
 
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(path = "/rest")
 public class MessageController {
     Logger logger = LoggerFactory.getLogger(MessageController.class);
 
 
-    @GetMapping()
+    @GetMapping("auth")
     public ResponseEntity<OAuth2User>  get( Principal principal) {
 
         if (principal instanceof   OAuth2AuthenticationToken token ){
             return ResponseEntity.ok(token.getPrincipal());
         }
-       
+
         return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 

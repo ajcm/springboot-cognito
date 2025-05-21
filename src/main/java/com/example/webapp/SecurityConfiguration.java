@@ -11,7 +11,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-
+import static org.springframework.security.config.Customizer.withDefaults;
 /**
  * Class to configure AWS Cognito as an OAuth 2.0 authorizer with Spring Security.
  * In this configuration, we specify our OAuth Client.
@@ -28,11 +28,12 @@ public class SecurityConfiguration {
 
         http.csrf(Customizer.withDefaults())
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/**").permitAll()
                         .anyRequest()
                         .authenticated())
 
                 .oauth2Login(Customizer.withDefaults())
+                .cors(withDefaults())
                 .logout(logout -> logout.logoutSuccessHandler(cognitoLogoutHandler));
         return http.build();
     }
