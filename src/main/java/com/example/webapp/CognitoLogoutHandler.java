@@ -24,7 +24,7 @@ public class CognitoLogoutHandler extends SimpleUrlLogoutSuccessHandler {
     /**
      * An allowed callback URL.
      */
-    private String logoutRedirectUrl = System.getenv("HOST-URL");
+    private String logoutRedirectUrl = System.getenv("HOST-URL") + "/";
 
     /**
      * The ID of your User Pool Client.

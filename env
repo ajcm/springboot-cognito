@@ -1,9 +1,9 @@
-MESSAGE=this is localhost
+SPRING_PROFILES_ACTIVE=custom
 
+MESSAGE=this is from dev configuration
+CLIENT-ID=3s33iqtmgoa0s85hji4h7jov62
+CLIENT-SECRET=1k34ek0k7s7vc3snt06snsie0ifenf69s5lbnb700jrgjk47s652
 
-CLIENT-ID=32u973dou2nhebl9p9rt16pdpc
-CLIENT-SECRET=1kguqvufqdl85s2og7afttmiaftkhafcdf00q2p1vgufupici595
-ISSUER-URL=https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_9o9th8r4u
+HOST-URL=http://localhost:8080
+ISSUER-URL=https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_GAdLZidIK
 DOMAIN-URL=https://eu-west-19o9th8r4u.auth.eu-west-1.amazoncognito.com
-
-HOST-URL=http://localhost:8080/

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +24,16 @@ public class MessageController {
 
 
     @GetMapping("auth")
-    public ResponseEntity<OAuth2User>  get( Principal principal) {
+    public ResponseEntity<Principal>  get( Principal principal) {
 
-        if (principal instanceof   OAuth2AuthenticationToken token ){
-            return ResponseEntity.ok(token.getPrincipal());
+//        if (principal instanceof   OAuth2AuthenticationToken token ){
+//            return ResponseEntity.ok(token.getPrincipal());
+//        } else if (principal instanceof   JwtAuthenticationToken token ) {
+//            return ResponseEntity.ok(token.getPrincipal());
+//        }
+
+        if (principal != null){
+            return ResponseEntity.ok(principal);
         }
 
         return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

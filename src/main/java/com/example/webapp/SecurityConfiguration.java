@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtDecoders;
 import org.springframework.security.web.SecurityFilterChain;
 import static org.springframework.security.config.Customizer.withDefaults;
 /**
@@ -34,7 +36,17 @@ public class SecurityConfiguration {
 
                 .oauth2Login(Customizer.withDefaults())
                 .cors(withDefaults())
-                .logout(logout -> logout.logoutSuccessHandler(cognitoLogoutHandler));
+              //  .logout(logout -> logout.logoutSuccessHandler(cognitoLogoutHandler))
+                .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()));
+
+
+
         return http.build();
+    }
+
+
+    @Bean
+    public JwtDecoder jwtDecoder() {
+        return JwtDecoders.fromIssuerLocation("https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_9o9th8r4u");
     }
 }

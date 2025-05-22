@@ -20,3 +20,9 @@ spring:
           cognito:
             issuerUri: https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_9o9th8r4u
             user-name-attribute: username
+
+
+
+app:
+  test:
+    message: default message
