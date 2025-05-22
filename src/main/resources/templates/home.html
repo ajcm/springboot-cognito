@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>Cognito App</title>
 </head>
 <body>
@@ -12,23 +12,27 @@
 
         <div sec:authorize="isAuthenticated()">
             <div>
-               User: <strong th:text="${#authentication.name}"></strong>!
+                User: <strong th:text="${#authentication.name}"></strong>!
                 <br>
                 <br>
             </div>
             <div>
-               <div th:text="${#authentication.getPrincipal()}"/>
+                <div th:text="${#authentication.getPrincipal()}"/>
                 <br>
                 <br>
             </div>
             <div>
-                <a th:href="@{/logout}"><button>Log out</button></a>
+                <a th:href="@{/logout}">
+                    <button>Log out</button>
+                </a>
             </div>
         </div>
 
         <div sec:authorize="isAnonymous()">
             <div>
-                <a th:href="@{/oauth2/authorization/cognito}"><button>Log in</button></a>
+                <a th:href="@{/oauth2/authorization/cognito}">
+                    <button>Log in</button>
+                </a>
             </div>
         </div>
     </div>

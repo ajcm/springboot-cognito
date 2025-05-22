@@ -2,7 +2,6 @@ package com.example.webapp;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -24,7 +23,7 @@ public class CognitoLogoutHandler extends SimpleUrlLogoutSuccessHandler {
     /**
      * An allowed callback URL.
      */
-    private String logoutRedirectUrl = System.getenv("HOST-URL") + "/";
+    private String logoutRedirectUrl = System.getenv("LOGOUT-REDIRECT-URL");
 
     /**
      * The ID of your User Pool Client.

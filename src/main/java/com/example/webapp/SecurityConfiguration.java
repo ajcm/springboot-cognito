@@ -1,19 +1,14 @@
 package com.example.webapp;
 
-import com.example.webapp.CognitoLogoutHandler;
-import org.springframework.context.annotation.Configuration;
-
-
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.JwtDecoders;
 import org.springframework.security.web.SecurityFilterChain;
+
 import static org.springframework.security.config.Customizer.withDefaults;
+
 /**
  * Class to configure AWS Cognito as an OAuth 2.0 authorizer with Spring Security.
  * In this configuration, we specify our OAuth Client.
@@ -28,25 +23,33 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         CognitoLogoutHandler cognitoLogoutHandler = new CognitoLogoutHandler();
 
+//        http.csrf(Customizer.withDefaults())
+//                .authorizeHttpRequests(authz -> authz
+//                        .requestMatchers("/**").permitAll()
+//                        .anyRequest()
+//                        .authenticated())
+//
+//                .oauth2Login(Customizer.withDefaults())
+//                .cors(withDefaults())
+//                .logout(logout -> logout.logoutSuccessHandler(cognitoLogoutHandler));
+//              //  .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()));
+
         http.csrf(Customizer.withDefaults())
+                .cors(withDefaults())
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/").permitAll()
                         .anyRequest()
                         .authenticated())
-
                 .oauth2Login(Customizer.withDefaults())
-                .cors(withDefaults())
-              //  .logout(logout -> logout.logoutSuccessHandler(cognitoLogoutHandler))
-                .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()));
-
-
-
+                .logout(logout -> logout.logoutSuccessHandler(cognitoLogoutHandler));
         return http.build();
+
+
     }
 
 
-    @Bean
-    public JwtDecoder jwtDecoder() {
-        return JwtDecoders.fromIssuerLocation("https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_9o9th8r4u");
-    }
+//    @Bean
+//    public JwtDecoder jwtDecoder() {
+//        return JwtDecoders.fromIssuerLocation("https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_9o9th8r4u");
+//    }
 }

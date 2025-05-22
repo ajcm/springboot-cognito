@@ -5,15 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.Map;
 
 
 @CrossOrigin(origins = "*")
@@ -24,26 +22,26 @@ public class MessageController {
 
 
     @GetMapping("auth")
-    public ResponseEntity<Principal>  get( Principal principal) {
-
-//        if (principal instanceof   OAuth2AuthenticationToken token ){
-//            return ResponseEntity.ok(token.getPrincipal());
-//        } else if (principal instanceof   JwtAuthenticationToken token ) {
-//            return ResponseEntity.ok(token.getPrincipal());
-//        }
-
-        if (principal != null){
+    public ResponseEntity<Principal> get(Principal principal) {
+        if (principal != null) {
             return ResponseEntity.ok(principal);
         }
 
-        return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    @GetMapping("env")
-    public ResponseEntity<String>  test(Principal principal, @Value("${app.test.message}") String msg) {
+    @GetMapping("test")
+    public ResponseEntity<String> test(Principal principal, @Value("${app.test.message}") String msg) {
 
         return ResponseEntity.ok(msg);
     }
 
+    @GetMapping("env")
+    public Map<String, String> getAllEnvVariables() {
+
+        return System.getenv();
+
+
+    }
 
 }
